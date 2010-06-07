@@ -160,12 +160,15 @@ sub report {
 
     # find max length in cols
     my @col_sz;
-    foreach my $h (@rep_cols) { push @col_sz, length $h; }
+    # initialize with header sizes
+    foreach my $h (@rep_cols) { 
+        push @col_sz, length $h; 
+    }
     foreach my $ar (@rows) {
         my $max_sz = 0;
         for (my $i=0; $i<scalar @{$ar}; $i++) {
            my $c_sz = length ($ar->[$i]);
-           $col_sz[$i] = $c_sz if (not exists $col_sz[$i] or $c_sz > $col_sz[$i]);
+           $col_sz[$i] = $c_sz if ($c_sz > $col_sz[$i]);
         }
     }
     
