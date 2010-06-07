@@ -1,0 +1,10 @@
+Script started on Mon 07 Jun 2010 12:29:07 PM CEST
+_mgrad@pc-techinf-26:~/Work/src-repos/woolcano-ise/b64/benchmarks/multijoin/example\[mgrad@pc-techinf-26 example]$ ./run.sh 
+ Foo  Bar  A  B  C 
+ ---  ---  -  -  - 
+ a    b    1  3  5 
+ a    b    1  3  6 
+ c    d    2  4  - 
+_mgrad@pc-techinf-26:~/Work/src-repos/woolcano-ise/b64/benchmarks/multijoin/example\[mgrad@pc-techinf-26 example]$ exit
+
+Script done on Mon 07 Jun 2010 12:29:10 PM CEST
