@@ -43,7 +43,8 @@ sub load_db {
 
        # store val in a record
        for (my $i=0; $i<=$#headers; $i++) {
-           my $val = $cols[$i] || "-";
+           my $val = "-";
+           $val = $cols[$i] if (defined $cols[$i]); 
            my $ev_code = q/push @{/ . $rec . '->' . "{\"$headers[$i]\"}}, " . q($val);
            # print "$ev_code\n";
            eval "$ev_code";
@@ -61,6 +62,8 @@ sub load_db {
 }
 
 # ========================= report() ======================== #
+# This build the @rows from %db (conversion)
+# Afterwards it prints the table
 sub report {
     our $db_href = (shift);
     our @rep_cols = @_;
@@ -102,6 +105,7 @@ sub report {
                     my $a_sz = scalar @{$href->{$h}};
                     if ($a_sz == 1) {
                         $val = $href->{$h}->[0]
+                    # if intersect
                     } else {
                         $val = "ar:$a_sz";
                         my $col_idx = scalar @cols;
@@ -122,7 +126,7 @@ sub report {
                         my ($col_name, $col_idx,$col_a_sz) = @multi_cols[$j..$j+3];
                         warn ("Multidimensional arrays have diff sizes") if ($col_a_sz != $a_sz);
                         my $aref = $href->{$col_name};
-                        $cols[$col_idx] = $aref->[$i];
+                        $cols[$col_idx] = "$aref->[$i]";
                     }
                     my @tmp = @cols;   # make a local copy
                     push @rows, \@tmp; # and store reference
@@ -150,7 +154,8 @@ sub report {
         }
    }
 
-    # recurrence needed to discover the tree
+    # build @rows array with data 
+    # recurrence is used in since the number of keys can vary
     build_rows($db_href);
 
     # find max length in cols
@@ -201,7 +206,7 @@ usage: $0 File1 KeyList1, File2 KeyList2 .. ReportColNames
     -KeyList         - numbers of cols used as a key
     -ReportColNames  - Column names used to create report
 
-Example: $0 a.txt 0,1 b.txt 0,3 "Foo, Bar, A, B" 
+Example: $0 a.txt 0,1 b.txt 0,3 "Foo, Bar, X, Y" 
 END
     exit 1;
 }
