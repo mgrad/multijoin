@@ -27,6 +27,7 @@ sub load_db {
 
     # process data
     foreach my $row (@$data_ref)   {
+       $row =~ s/^\s+//;
        my @keys;
        my @cols = split(/\s+/,$row); 
 
@@ -124,7 +125,7 @@ sub report {
                 for (my $i=0; $i<$a_sz; $i++) {
                     for (my $j=0; $j< scalar @multi_cols; $j+=3) {
                         my ($col_name, $col_idx,$col_a_sz) = @multi_cols[$j..$j+3];
-                        warn ("Multidimensional arrays have diff sizes") if ($col_a_sz != $a_sz);
+                        warn ("Multidimensional arrays have diff sizes for: $col_name & $multi_cols[0]") if ($col_a_sz != $a_sz);
                         my $aref = $href->{$col_name};
                         $cols[$col_idx] = "$aref->[$i]";
                     }
@@ -219,7 +220,8 @@ my $skip_lines = q('^$|^-|^#');
 while ( scalar @ARGV  > 1) {
     my ($fname, $keys) = splice(@ARGV, 0, 2);
     my @data = `grep -Ev $skip_lines $fname`;
-    my @keys = split(/,\s*/, $keys);
+    my @keys = split(/,?\s*/, $keys);
+    # print "$fname: " . join(" ", @keys) ."\n";
     &load_db(\%db, \@data, @keys);
 }
 
