@@ -37,9 +37,10 @@ Foo  Bar D
 x    x   5  
 
 [mgrad@pc-techinf-26 multijoin]$ cat example/run.sh                                                                                                                                                                                                                                                                         
-#!/bin/bash                                                                                                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                                                                ../multijoin.pl a.txt 0,1 b.txt 0,2 c.txt 0,1 d.txt 0,1 "Foo, Bar, A, B, C, D" 
+#!/bin/bash
+
+    ../multijoin.pl a.txt 0,1 b.txt 0,2 c.txt 0,1 d.txt 0,1 "Foo, Bar, A, B, C, D"
+
 
 [mgrad@pc-techinf-26 multijoin]$ (cd example/ && ./run.sh)                                                                                                                                                                                                                                                                  
 Foo  Bar  A  B  C  D                                                                                                                                                                                                                                                                                                        
