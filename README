@@ -19,21 +19,32 @@ Example: ./multijoin.pl a.txt 0,1 b.txt 0,3 "Foo, Bar, A, B"
 
 # =========== example ===============#
 
-[mgrad@pc-techinf-26 multijoin]$ cat example/{a,b,c}.txt
-Foo Bar A 
-a   b   1
-c   d   2
-Foo B Bar
-a   3 b
-c   4 d
-Foo  Bar C
-a    b   5
-a    b   6
+[mgrad@pc-techinf-26 multijoin]$ cat example/{a,b,c,d}.txt
+Foo Bar A                                                                                                                                                                                                                                                                                                                   
+=========                                                                                                                                                                                                                                                                                                                   
+a   b   1                                                                                                                                                                                                                                                                                                                   
+c   d   2                                                                                                                                                                                                                                                                                                                   
+Foo B Bar                                                                                                                                                                                                                                                                                                                   
+---------                                                                                                                                                                                                                                                                                                                   
+a   3 b                                                                                                                                                                                                                                                                                                                     
+c   4 d                                                                                                                                                                                                                                                                                                                     
+Foo  Bar C                                                                                                                                                                                                                                                                                                                  
+-----------                                                                                                                                                                                                                                                                                                                 
+a    b   5                                                                                                                                                                                                                                                                                                                  
+a    b   6                                                                                                                                                                                                                                                                                                                  
+Foo  Bar D                                                                                                                                                                                                                                                                                                                  
+==========                                                                                                                                                                                                                                                                                                                  
+x    x   5  
 
+[mgrad@pc-techinf-26 multijoin]$ cat example/run.sh                                                                                                                                                                                                                                                                         
+#!/bin/bash                                                                                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                ../multijoin.pl a.txt 0,1 b.txt 0,2 c.txt 0,1 d.txt 0,1 "Foo, Bar, A, B, C, D" 
 
-[mgrad@pc-techinf-26 multijoin]$ ./multijoin.pl example/a.txt 0,1 example/b.txt 0,2 example/c.txt 0,1 "Foo, Bar, A, B, C"
- Foo  Bar  A  B  C 
- ---  ---  -  -  - 
- a    b    1  3  5 
- a    b    1  3  6 
- c    d    2  4  - 
+[mgrad@pc-techinf-26 multijoin]$ (cd example/ && ./run.sh)                                                                                                                                                                                                                                                                  
+Foo  Bar  A  B  C  D                                                                                                                                                                                                                                                                                                        
+---  ---  -  -  -  - 
+a    b    1  3  5  - 
+a    b    1  3  6  - 
+c    d    2  4  -  - 
+x    x    -  -  -  5 

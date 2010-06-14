@@ -1,3 +1,4 @@
 Foo B Bar
+---------
 a   3 b
 c   4 d

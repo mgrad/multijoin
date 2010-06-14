@@ -174,11 +174,12 @@ sub report {
     }
     
     # build format string
-    my $format;
+    my $format ;
     foreach my $f (@col_sz) {
         $format .= " %-" . $f. "s ";
     }
     $format .= "\n";
+    $format =~ s/^\s+//;
 
     # build header bar string
     my @header_bar;
